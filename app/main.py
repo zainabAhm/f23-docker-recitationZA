@@ -1,5 +1,4 @@
-from typing import Union
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 import requests
 
 app = FastAPI()
@@ -23,13 +22,18 @@ def get_section_info(section_id: str):
 
     section_id = section_id.lower()
 
-    r = requests.get("https://whos-my-ta.fly.dev/section_id/" + section_id)
+    response = requests.get("https://whos-my-ta.fly.dev/section_id/" + section_id)
 
     # You can check out what the response body looks like in terminal using the print statement
-    print(r.content)
+    data = response.json()
+    print(data)
+    ta_name_list = data["ta_names"]
+    ta1_name = ta_name_list[0]["fname"] + " " + ta_name_list[0]["lname"]
+    ta2_name = ta_name_list[1]["fname"] + " " + ta_name_list[1]["lname"]
+
+    print(ta1_name)
 
     # TODO
-
     if section_id == "a":
         return {
             "section": "section_name",
