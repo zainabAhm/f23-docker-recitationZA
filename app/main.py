@@ -40,6 +40,7 @@ def get_section_info(section_id: str):
             "start_time": "HH:MM",
             "end_time": "HH:MM",
             "ta": ["taName1", "taName2"]
+            "recitation_time": RECITATION_HOURS.get(section_id, "Unknown")
         }
     else:
         raise HTTPException(status_code=404, detail="Invalid section id")
